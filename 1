@@ -1,0 +1,52 @@
+#include <stdio.h>
+int main() {
+    // Делаем многострочный ввод
+    char lines[3][30] = {
+        "/test.txt",
+        "Привет",
+        "Мир"
+    };
+    // Выводим имя файла
+    printf("marat: %s\n", lines[0]);
+    // Объединяем строки содержимого
+    char content[100];
+    int index = 0;
+    for (int i = 1; i < 3; i++) { 
+        int j = 0;
+        while (lines[i][j] != '\0') {
+            content[index++] = lines[i][j++];
+        }
+        content[index++] = '\n'; // добавляем перенос строки
+    }
+    content[index] = '\0'; // конец всей строки
+    // Выводим содержимое
+    printf("\nСодержимое файла:\n%s", content);
+    // Проверяем, есть ли слово "Привет"
+    char target[] = "Привет";
+    int found = 0;
+    int contentLength = 0;
+    // Находим длину содержимого
+    while (content[contentLength] != '\0') {
+        contentLength++;
+    }
+    // Поиск слова вручную
+    for (int i = 0; i <= contentLength - 6; i++) { // 6 - длина слова "Привет"
+        int match = 1; // Флаг, показывающий есть ли совпадение
+        for (int j = 0; j < 6; j++) {
+            if (content[i + j] != target[j]) {
+                match = 0; // Не совпало
+                break;
+            }
+        }
+        if (match) {
+            found = 1; // Слово найдено
+            break;
+        }
+    }
+    if (found) {
+        printf("\nСлово \"%s\" найдено в тексте\n", target);
+    } else {
+        printf("\nСлово \"%s\" не найдено\n", target);
+    }
+    return 0;
+}
